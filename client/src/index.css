@@ -1,0 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Leaflet marker styles */
+.custom-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.installer-marker {
+  background: #10b981;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.installer-marker:hover {
+  background: #059669;
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+}
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(240, 10%, 3.9%);
+  --muted: hsl(240, 4.8%, 95.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(240, 10%, 3.9%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(240, 10%, 3.9%);
+  --border: hsl(240, 5.9%, 90%);
+  --input: hsl(240, 5.9%, 90%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(240, 4.8%, 95.9%);
+  --secondary-foreground: hsl(240, 5.9%, 10%);
+  --accent: hsl(240, 4.8%, 95.9%);
+  --accent-foreground: hsl(240, 5.9%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 5%, 64.9%);
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Norwegian Business Theme Colors */
+:root {
+  --primary: hsl(207, 90%, 54%); /* Professional blue */
+  --success: hsl(142, 71%, 45%); /* Success green */
+  --warning: hsl(45, 93%, 47%); /* Warning yellow */
+  --danger: hsl(0, 84%, 60%); /* Danger red */
+  --muted: hsl(240, 5%, 64.9%); /* Muted gray */
+}
+
+/* Custom Norwegian styling */
+.portal-content {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Professional button styling */
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary hover:opacity-90;
+}
+
+.btn-success {
+  @apply bg-green-600 text-white hover:bg-green-700;
+}
+
+.btn-warning {
+  @apply bg-yellow-500 text-white hover:bg-yellow-600;
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white hover:bg-red-700;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-all duration-200 hover:shadow-md hover:border-primary hover:border-opacity-20;
+}
+
+/* Status badges */
+.status-active {
+  @apply bg-green-100 text-green-800 border-green-200;
+}
+
+.status-pending {
+  @apply bg-yellow-100 text-yellow-800 border-yellow-200;
+}
+
+.status-inactive {
+  @apply bg-red-100 text-red-800 border-red-200;
+}
+
+/* Form styling */
+.form-section {
+  @apply space-y-6 p-6 bg-white rounded-lg shadow-sm border;
+}
+
+/* Norwegian typography */
+.text-norwegian {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: 'liga' 1, 'kern' 1;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .mobile-card {
+    @apply mx-4 px-4 py-3;
+  }
+  
+  .mobile-nav {
+    @apply px-2 py-1;
+  }
+}
+
+/* Stats cards */
+.stats-card {
+  @apply bg-white rounded-lg shadow-sm border p-6 transition-all duration-200 hover:shadow-md;
+}
+
+/* Loading states */
+.loading-spinner {
+  @apply animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full;
+}
+
+/* Professional table styling */
+.professional-table {
+  @apply w-full text-sm;
+}
+
+.professional-table thead {
+  @apply bg-gray-50;
+}
+
+.professional-table th {
+  @apply px-4 py-3 text-left font-medium text-gray-700;
+}
+
+.professional-table td {
+  @apply px-4 py-3 border-b border-gray-200;
+}
+
+.professional-table tbody tr:hover {
+  @apply bg-gray-50;
+}
+
+/* Badge styling */
+.badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.badge-success {
+  @apply bg-green-100 text-green-800;
+}
+
+.badge-warning {
+  @apply bg-yellow-100 text-yellow-800;
+}
+
+.badge-danger {
+  @apply bg-red-100 text-red-800;
+}
+
+.badge-info {
+  @apply bg-blue-100 text-blue-800;
+}
+
+/* Gradient backgrounds */
+.gradient-primary {
+  background: linear-gradient(135deg, hsl(207, 90%, 54%) 0%, hsl(220, 90%, 60%) 100%);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, hsl(142, 71%, 45%) 0%, hsl(152, 71%, 50%) 100%);
+}
+
+/* Focus states */
+.focus-primary {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+/* Norwegian professional spacing */
+.section-spacing {
+  @apply py-12 px-4 sm:px-6 lg:px-8;
+}
+
+.content-spacing {
+  @apply py-6 px-4 sm:px-6 lg:px-8;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: hsl(240, 5.9%, 95%);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(240, 5%, 64.9%);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(240, 5%, 54.9%);
+}
