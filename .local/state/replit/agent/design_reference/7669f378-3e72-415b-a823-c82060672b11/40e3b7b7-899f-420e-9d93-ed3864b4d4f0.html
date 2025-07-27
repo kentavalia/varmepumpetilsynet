@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VarmepumpeTilsynet - Profesjonell varmepumpeservice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066CC',
+                        secondary: '#F8F9FA',
+                        success: '#28A745',
+                        warning: '#FFC107',
+                        danger: '#DC3545',
+                        muted: '#6C757D'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- @COMPONENT: Header Navigation -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-thermometer-half text-primary text-2xl"></i>
+                    <h1 class="text-xl font-bold text-gray-900">VarmepumpeTilsynet</h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <button data-portal="customer" class="portal-tab text-primary border-b-2 border-primary pb-4 px-1 font-medium">
+                        <i class="fas fa-user mr-2"></i>Kundeportal
+                    </button>
+                    <button data-portal="installer" class="portal-tab text-muted hover:text-gray-900 pb-4 px-1 font-medium">
+                        <i class="fas fa-tools mr-2"></i>Installatørportal
+                    </button>
+                    <button data-portal="admin" class="portal-tab text-muted hover:text-gray-900 pb-4 px-1 font-medium">
+                        <i class="fas fa-cog mr-2"></i>Adminpanel
+                    </button>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <button class="text-muted hover:text-gray-900">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="flex items-center space-x-2">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&h=32" 
+                             alt="Bruker avatar" class="w-8 h-8 rounded-full object-cover" data-mock="true">
+                        <span class="text-sm font-medium text-gray-700" data-bind="user.name">Ola Nordmann</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="md:hidden border-t bg-white">
+            <div class="flex justify-around py-2">
+                <button data-portal="customer" class="mobile-portal-tab flex flex-col items-center py-2 px-4 text-primary">
+                    <i class="fas fa-user text-lg"></i>
+                    <span class="text-xs mt-1">Kunde</span>
+                </button>
+                <button data-portal="installer" class="mobile-portal-tab flex flex-col items-center py-2 px-4 text-muted">
+                    <i class="fas fa-tools text-lg"></i>
+                    <span class="text-xs mt-1">Installatør</span>
+                </button>
+                <button data-portal="admin" class="mobile-portal-tab flex flex-col items-center py-2 px-4 text-muted">
+                    <i class="fas fa-cog text-lg"></i>
+                    <span class="text-xs mt-1">Admin</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header Navigation -->
+
+    <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        
+        <!-- @COMPONENT: Customer Portal -->
+        <div id="customer-portal" class="portal-content">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Kundeportal</h2>
+                <p class="text-muted">Administrer din varmepumpe og abonnement</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Customer Registration Form -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <h3 class="text-xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-user-plus text-primary mr-3"></i>
+                            Registrer deg som kunde
+                        </h3>
+                        
+                        <form class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Fullt navn</label>
+                                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                           placeholder="Ola Nordmann" data-mock="true">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">E-post</label>
+                                    <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                           placeholder="ola@example.com" data-mock="true">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Adresse</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                       placeholder="Storgata 1, 0001 Oslo" data-mock="true">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Fylke</label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="">Velg fylke</option>
+                                        <option value="oslo" data-mock="true">Oslo</option>
+                                        <option value="viken" data-mock="true">Viken</option>
+                                        <option value="innlandet" data-mock="true">Innlandet</option>
+                                        <option value="vestfold-telemark" data-mock="true">Vestfold og Telemark</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Kommune</label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="">Velg kommune</option>
+                                        <option value="oslo" data-mock="true">Oslo</option>
+                                        <option value="baerum" data-mock="true">Bærum</option>
+                                        <option value="asker" data-mock="true">Asker</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Telefonnummer</label>
+                                <input type="tel" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                       placeholder="+47 123 45 678" data-mock="true">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Heat Pump Information -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6 mt-6">
+                        <h3 class="text-xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-thermometer-half text-primary mr-3"></i>
+                            Varmepumpe informasjon
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Merke/Modell</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                       placeholder="Mitsubishi Electric MSZ-LN25VG" data-mock="true">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Siste service dato</label>
+                                <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                       value="2023-09-15" data-mock="true">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button class="bg-primary text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors duration-200 font-medium" 
+                                    data-event="click:saveHeatPumpInfo">
+                                <i class="fas fa-save mr-2"></i>
+                                Lagre informasjon
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subscription & Services Sidebar -->
+                <div class="space-y-6">
+                    <!-- Subscription Card -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i class="fas fa-credit-card text-primary mr-3"></i>
+                            Abonnement
+                        </h3>
+                        
+                        <div class="bg-gradient-to-r from-primary to-blue-600 text-white rounded-lg p-4 mb-4">
+                            <div class="text-2xl font-bold">29 kr</div>
+                            <div class="text-sm opacity-90">per måned</div>
+                        </div>
+                        
+                        <ul class="space-y-2 text-sm text-gray-600 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-success mr-2"></i>
+                                Servicepåminnelser
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-success mr-2"></i>
+                                Installatør matching
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-success mr-2"></i>
+                                Tilstandsovervåking
+                            </li>
+                        </ul>
+                        
+                        <button class="w-full bg-success text-white py-2 rounded-md hover:bg-green-600 transition-colors duration-200 font-medium" 
+                                data-event="click:subscribeStripe" data-implementation="Stripe integration required">
+                            <i class="fas fa-credit-card mr-2"></i>
+                            Abonner nå
+                        </button>
+                    </div>
+
+                    <!-- Local Installers -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i class="fas fa-map-marker-alt text-primary mr-3"></i>
+                            Installatører i ditt område
+                        </h3>
+                        
+                        <!-- @MAP: installers.map(installer => ( -->
+                        <div class="space-y-3" data-bind="localInstallers">
+                            <div class="border rounded-lg p-3 hover:bg-gray-50 cursor-pointer" data-mock="true">
+                                <div class="font-medium text-gray-900">ThermoTeknikk AS</div>
+                                <div class="text-sm text-muted">Oslo • 4.8 ⭐ (24 anmeldelser)</div>
+                                <div class="text-xs text-muted mt-1">Spesialist på Mitsubishi</div>
+                            </div>
+                            
+                            <div class="border rounded-lg p-3 hover:bg-gray-50 cursor-pointer" data-mock="true">
+                                <div class="font-medium text-gray-900">VarmePumpe Service</div>
+                                <div class="text-sm text-muted">Oslo • 4.6 ⭐ (18 anmeldelser)</div>
+                                <div class="text-xs text-muted mt-1">Alle merker</div>
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                        
+                        <button class="w-full mt-4 text-primary border border-primary py-2 rounded-md hover:bg-primary hover:text-white transition-colors duration-200 font-medium">
+                            Se alle installatører
+                        </button>
+                    </div>
+
+                    <!-- Service Reminders -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i class="fas fa-bell text-warning mr-3"></i>
+                            Kommende påminnelser
+                        </h3>
+                        
+                        <div class="space-y-3">
+                            <div class="bg-warning bg-opacity-10 border border-warning border-opacity-30 rounded-lg p-3" data-mock="true">
+                                <div class="text-sm font-medium text-gray-900">Service forfaller snart</div>
+                                <div class="text-xs text-muted">15. mars 2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: Customer Portal -->
+
+        <!-- @COMPONENT: Installer Portal -->
+        <div id="installer-portal" class="portal-content hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Installatørportal</h2>
+                <p class="text-muted">Administrer servicetilbud og kunder</p>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <!-- Business Registration -->
+                <div class="xl:col-span-2">
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <h3 class="text-xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-building text-primary mr-3"></i>
+                            Bedriftsregistrering
+                        </h3>
+                        
+                        <form class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Bedriftsnavn</label>
+                                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                           placeholder="ThermoTeknikk AS" data-mock="true">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Organisasjonsnummer</label>
+                                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                           placeholder="123 456 789" data-mock="true">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Kontaktperson</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                       placeholder="Kari Hansen" data-mock="true">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">E-post</label>
+                                    <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                           placeholder="kari@thermoteknikk.no" data-mock="true">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Telefon</label>
+                                    <input type="tel" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                           placeholder="+47 987 65 432" data-mock="true">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Service Areas -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6 mt-6">
+                        <h3 class="text-xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-map text-primary mr-3"></i>
+                            Serviceområder
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Fylke</label>
+                                <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">Velg fylke</option>
+                                    <option value="oslo" data-mock="true">Oslo</option>
+                                    <option value="viken" data-mock="true">Viken</option>
+                                    <option value="innlandet" data-mock="true">Innlandet</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Kommuner</label>
+                                <div class="border border-gray-300 rounded-md p-3 max-h-32 overflow-y-auto">
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" class="mr-2" checked data-mock="true">
+                                            <span class="text-sm">Oslo</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" class="mr-2" checked data-mock="true">
+                                            <span class="text-sm">Bærum</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" class="mr-2" data-mock="true">
+                                            <span class="text-sm">Asker</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" class="mr-2" data-mock="true">
+                                            <span class="text-sm">Drammen</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button class="bg-primary text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors duration-200 font-medium" 
+                                    data-event="click:saveServiceAreas">
+                                <i class="fas fa-save mr-2"></i>
+                                Lagre serviceområder
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Customer Requests -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6 mt-6">
+                        <h3 class="text-xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-users text-primary mr-3"></i>
+                            Potensielle kunder i ditt område
+                        </h3>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-700">Kunde</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-700">Kommune</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-700">Varmepumpe</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-700">Siste service</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-700">Handling</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <!-- @MAP: customers.map(customer => ( -->
+                                    <tr data-mock="true">
+                                        <td class="px-4 py-3">
+                                            <div class="font-medium text-gray-900">Ola Nordmann</div>
+                                            <div class="text-xs text-muted">ola@example.com</div>
+                                        </td>
+                                        <td class="px-4 py-3 text-gray-700">Oslo</td>
+                                        <td class="px-4 py-3 text-gray-700">Mitsubishi MSZ-LN25VG</td>
+                                        <td class="px-4 py-3">
+                                            <span class="bg-warning bg-opacity-20 text-warning px-2 py-1 rounded-full text-xs">2023-09-15</span>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button class="bg-primary text-white px-3 py-1 rounded text-xs hover:bg-blue-700" 
+                                                    data-event="click:contactCustomer">
+                                                Kontakt
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-mock="true">
+                                        <td class="px-4 py-3">
+                                            <div class="font-medium text-gray-900">Kari Andersen</div>
+                                            <div class="text-xs text-muted">kari@example.com</div>
+                                        </td>
+                                        <td class="px-4 py-3 text-gray-700">Bærum</td>
+                                        <td class="px-4 py-3 text-gray-700">Panasonic CS-TZ25TKEW</td>
+                                        <td class="px-4 py-3">
+                                            <span class="bg-danger bg-opacity-20 text-danger px-2 py-1 rounded-full text-xs">2023-07-20</span>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button class="bg-primary text-white px-3 py-1 rounded text-xs hover:bg-blue-700" 
+                                                    data-event="click:contactCustomer">
+                                                Kontakt
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <!-- @END_MAP )) -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Installer Dashboard Sidebar -->
+                <div class="space-y-6">
+                    <!-- Stats Cards -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-primary mr-3"></i>
+                            Statistikk
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-primary bg-opacity-10 rounded-lg p-4">
+                                <div class="text-2xl font-bold text-primary" data-bind="stats.potentialCustomers">8</div>
+                                <div class="text-sm text-muted">Potensielle kunder</div>
+                            </div>
+                            
+                            <div class="bg-success bg-opacity-10 rounded-lg p-4">
+                                <div class="text-2xl font-bold text-success" data-bind="stats.completedServices">24</div>
+                                <div class="text-sm text-muted">Utførte servicer</div>
+                            </div>
+                            
+                            <div class="bg-warning bg-opacity-10 rounded-lg p-4">
+                                <div class="text-2xl font-bold text-warning" data-bind="stats.rating">4.8</div>
+                                <div class="text-sm text-muted">Gjennomsnittlig rating</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certification Status -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i class="fas fa-certificate text-success mr-3"></i>
+                            Sertifiseringsstatus
+                        </h3>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Bedrift verifisert</span>
+                                <i class="fas fa-check-circle text-success"></i>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">F-gass sertifikat</span>
+                                <i class="fas fa-check-circle text-success"></i>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Forsikring</span>
+                                <i class="fas fa-check-circle text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <h3 class="text-lg font-semibold mb-4">Hurtighandlinger</h3>
+                        
+                        <div class="space-y-3">
+                            <button class="w-full text-left p-3 rounded-lg border hover:bg-gray-50 transition-colors duration-200" 
+                                    data-event="click:updateProfile">
+                                <i class="fas fa-edit text-primary mr-3"></i>
+                                Oppdater profil
+                            </button>
+                            <button class="w-full text-left p-3 rounded-lg border hover:bg-gray-50 transition-colors duration-200" 
+                                    data-event="click:manageAvailability">
+                                <i class="fas fa-calendar text-primary mr-3"></i>
+                                Administrer tilgjengelighet
+                            </button>
+                            <button class="w-full text-left p-3 rounded-lg border hover:bg-gray-50 transition-colors duration-200" 
+                                    data-event="click:viewReviews">
+                                <i class="fas fa-star text-primary mr-3"></i>
+                                Se anmeldelser
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: Installer Portal -->
+
+        <!-- @COMPONENT: Admin Panel -->
+        <div id="admin-portal" class="portal-content hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Adminpanel</h2>
+                <p class="text-muted">Administrer alle aspekter av VarmepumpeTilsynet</p>
+            </div>
+
+            <!-- Admin Stats Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow-sm border p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-2xl font-bold text-gray-900" data-bind="adminStats.totalCustomers">1,247</div>
+                            <div class="text-sm text-muted">Totale kunder</div>
+                        </div>
+                        <i class="fas fa-users text-primary text-2xl"></i>
+                    </div>
+                    <div class="mt-2 text-xs text-success">+12% denne måneden</div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm border p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-2xl font-bold text-gray-900" data-bind="adminStats.activeInstallers">89</div>
+                            <div class="text-sm text-muted">Aktive installatører</div>
+                        </div>
+                        <i class="fas fa-tools text-success text-2xl"></i>
+                    </div>
+                    <div class="mt-2 text-xs text-success">+5% denne måneden</div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm border p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-2xl font-bold text-gray-900" data-bind="adminStats.monthlyRevenue">36,163</div>
+                            <div class="text-sm text-muted">Månedlig inntekt (kr)</div>
+                        </div>
+                        <i class="fas fa-chart-line text-warning text-2xl"></i>
+                    </div>
+                    <div class="mt-2 text-xs text-success">+18% denne måneden</div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm border p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-2xl font-bold text-gray-900" data-bind="adminStats.pendingApprovals">7</div>
+                            <div class="text-sm text-muted">Ventende godkjenninger</div>
+                        </div>
+                        <i class="fas fa-clock text-danger text-2xl"></i>
+                    </div>
+                    <div class="mt-2 text-xs text-warning">Krever handling</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <!-- Customer Management -->
+                <div class="xl:col-span-2">
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-xl font-semibold flex items-center">
+                                <i class="fas fa-users-cog text-primary mr-3"></i>
+                                Kundeadministrasjon
+                            </h3>
+                            <div class="flex space-x-2">
+                                <input type="search" placeholder="Søk kunder..." 
+                                       class="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <button class="bg-primary text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-700">Kunde</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-700">Kommune</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-700">Abonnement</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-700">Registrert</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-700">Handlinger</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <!-- @MAP: customers.map(customer => ( -->
+                                    <tr data-mock="true">
+                                        <td class="px-4 py-3">
+                                            <div class="font-medium text-gray-900">Ola Nordmann</div>
+                                            <div class="text-xs text-muted">ola@example.com</div>
+                                        </td>
+                                        <td class="px-4 py-3 text-gray-700">Oslo</td>
+                                        <td class="px-4 py-3">
+                                            <span class="bg-success bg-opacity-20 text-success px-2 py-1 rounded-full text-xs">Aktiv</span>
+                                        </td>
+                                        <td class="px-4 py-3 text-gray-700">15.01.2024</td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex space-x-2">
+                                                <button class="text-primary hover:text-blue-700" data-event="click:editCustomer">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="text-muted hover:text-gray-700" data-event="click:viewCustomer">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr data-mock="true">
+                                        <td class="px-4 py-3">
+                                            <div class="font-medium text-gray-900">Kari Andersen</div>
+                                            <div class="text-xs text-muted">kari@example.com</div>
+                                        </td>
+                                        <td class="px-4 py-3 text-gray-700">Bærum</td>
+                                        <td class="px-4 py-3">
+                                            <span class="bg-warning bg-opacity-20 text-warning px-2 py-1 rounded-full text-xs">Utløpt</span>
+                                        </td>
+                                        <td class="px-4 py-3 text-gray-700">10.12.2023</td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex space-x-2">
+                                                <button class="text-primary hover:text-blue-700" data-event="click:editCustomer">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="text-muted hover:text-gray-700" data-event="click:viewCustomer">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- @END_MAP )) -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-sm text-muted">Viser 1-10 av 1,247 kunder</span>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 border rounded text-sm hover:bg-gray-50">Forrige</button>
+                                <button class="px-3 py-1 bg-primary text-white rounded text-sm">1</button>
+                                <button class="px-3 py-1 border rounded text-sm hover:bg-gray-50">2</button>
+                                <button class="px-3 py-1 border rounded text-sm hover:bg-gray-50">3</button>
+                                <button class="px-3 py-1 border rounded text-sm hover:bg-gray-50">Neste</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Installer Approvals -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6 mt-6">
+                        <h3 class="text-xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-user-check text-warning mr-3"></i>
+                            Installatør godkjenninger
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <!-- @MAP: pendingInstallers.map(installer => ( -->
+                            <div class="border rounded-lg p-4 hover:bg-gray-50" data-mock="true">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-medium text-gray-900">VarmePumpe Eksperten AS</div>
+                                        <div class="text-sm text-muted">Org.nr: 987 654 321 • Oslo</div>
+                                        <div class="text-xs text-muted mt-1">Søkt: 20.02.2024</div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-success text-white px-3 py-1 rounded text-sm hover:bg-green-600" 
+                                                data-event="click:approveInstaller">
+                                            <i class="fas fa-check mr-1"></i>Godkjenn
+                                        </button>
+                                        <button class="bg-danger text-white px-3 py-1 rounded text-sm hover:bg-red-600" 
+                                                data-event="click:rejectInstaller">
+                                            <i class="fas fa-times mr-1"></i>Avslå
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- @END_MAP )) -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Actions & Reports Sidebar -->
+                <div class="space-y-6">
+                    <!-- Quick Admin Actions -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <h3 class="text-lg font-semibold mb-4">Administrative handlinger</h3>
+                        
+                        <div class="space-y-3">
+                            <button class="w-full text-left p-3 rounded-lg border hover:bg-gray-50 transition-colors duration-200" 
+                                    data-event="click:exportCustomers">
+                                <i class="fas fa-download text-primary mr-3"></i>
+                                Eksporter kundedata
+                            </button>
+                            <button class="w-full text-left p-3 rounded-lg border hover:bg-gray-50 transition-colors duration-200" 
+                                    data-event="click:sendBulkNotifications">
+                                <i class="fas fa-envelope text-primary mr-3"></i>
+                                Send masseutsendelse
+                            </button>
+                            <button class="w-full text-left p-3 rounded-lg border hover:bg-gray-50 transition-colors duration-200" 
+                                    data-event="click:manageSubscriptions">
+                                <i class="fas fa-credit-card text-primary mr-3"></i>
+                                Administrer abonnementer
+                            </button>
+                            <button class="w-full text-left p-3 rounded-lg border hover:bg-gray-50 transition-colors duration-200" 
+                                    data-event="click:systemSettings">
+                                <i class="fas fa-cog text-primary mr-3"></i>
+                                Systeminnstillinger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Geographic Distribution -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i class="fas fa-map-marker-alt text-primary mr-3"></i>
+                            Geografisk fordeling
+                        </h3>
+                        
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Oslo</span>
+                                <div class="flex items-center">
+                                    <div class="w-16 bg-gray-200 rounded-full h-2 mr-2">
+                                        <div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+                                    </div>
+                                    <span class="text-xs text-muted" data-bind="geoStats.oslo">562</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Viken</span>
+                                <div class="flex items-center">
+                                    <div class="w-16 bg-gray-200 rounded-full h-2 mr-2">
+                                        <div class="bg-primary h-2 rounded-full" style="width: 32%"></div>
+                                    </div>
+                                    <span class="text-xs text-muted" data-bind="geoStats.viken">399</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Vestland</span>
+                                <div class="flex items-center">
+                                    <div class="w-16 bg-gray-200 rounded-full h-2 mr-2">
+                                        <div class="bg-primary h-2 rounded-full" style="width: 18%"></div>
+                                    </div>
+                                    <span class="text-xs text-muted" data-bind="geoStats.vestland">224</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Andre</span>
+                                <div class="flex items-center">
+                                    <div class="w-16 bg-gray-200 rounded-full h-2 mr-2">
+                                        <div class="bg-primary h-2 rounded-full" style="width: 5%"></div>
+                                    </div>
+                                    <span class="text-xs text-muted" data-bind="geoStats.others">62</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="bg-white rounded-lg shadow-sm border p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i class="fas fa-history text-primary mr-3"></i>
+                            Nylig aktivitet
+                        </h3>
+                        
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-start space-x-3" data-mock="true">
+                                <i class="fas fa-user-plus text-success mt-1"></i>
+                                <div>
+                                    <div class="text-gray-900">Ny kunde registrert</div>
+                                    <div class="text-xs text-muted">Ola Nordmann • Oslo • 2 min siden</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3" data-mock="true">
+                                <i class="fas fa-check-circle text-success mt-1"></i>
+                                <div>
+                                    <div class="text-gray-900">Installatør godkjent</div>
+                                    <div class="text-xs text-muted">ThermoTeknikk AS • 15 min siden</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3" data-mock="true">
+                                <i class="fas fa-credit-card text-primary mt-1"></i>
+                                <div>
+                                    <div class="text-gray-900">Abonnement fornyet</div>
+                                    <div class="text-xs text-muted">Kari Andersen • 1 time siden</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: Admin Panel -->
+    </main>
+
+    <script>
+        (function() {
+            // Portal switching functionality
+            const portalTabs = document.querySelectorAll('.portal-tab');
+            const mobilePortalTabs = document.querySelectorAll('.mobile-portal-tab');
+            const portalContents = document.querySelectorAll('.portal-content');
+
+            function switchPortal(targetPortal) {
+                // Hide all portals
+                portalContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+
+                // Show target portal
+                const targetContent = document.getElementById(targetPortal + '-portal');
+                if (targetContent) {
+                    targetContent.classList.remove('hidden');
+                }
+
+                // Update tab states (desktop)
+                portalTabs.forEach(tab => {
+                    const isActive = tab.dataset.portal === targetPortal;
+                    tab.className = isActive 
+                        ? 'portal-tab text-primary border-b-2 border-primary pb-4 px-1 font-medium'
+                        : 'portal-tab text-muted hover:text-gray-900 pb-4 px-1 font-medium';
+                });
+
+                // Update tab states (mobile)
+                mobilePortalTabs.forEach(tab => {
+                    const isActive = tab.dataset.portal === targetPortal;
+                    tab.className = isActive 
+                        ? 'mobile-portal-tab flex flex-col items-center py-2 px-4 text-primary'
+                        : 'mobile-portal-tab flex flex-col items-center py-2 px-4 text-muted';
+                });
+            }
+
+            // Add click handlers
+            [...portalTabs, ...mobilePortalTabs].forEach(tab => {
+                tab.addEventListener('click', () => {
+                    switchPortal(tab.dataset.portal);
+                });
+            });
+
+            // TODO: Implement business logic for:
+            // - Customer registration and subscription management
+            // - Installer approval workflow
+            // - Customer-installer matching algorithm
+            // - Payment processing with Stripe
+            // - Email and SMS notification system
+            // - Municipality database and geographic filtering
+            // - Admin reporting and analytics
+            // - User authentication and role management
+            
+        })();
+    </script>
+</body>
+</html>
