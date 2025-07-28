@@ -1,0 +1,9 @@
+[phases.build]
+cmds = [
+  "npm ci",
+  "npm run build",
+  "npx esbuild server/production-server.ts --platform=node --packages=external --bundle --format=esm --outdir=dist"
+]
+
+[start]
+cmd = "NODE_ENV=production node dist/production-server.js"
